@@ -38,7 +38,6 @@ void Office::checkQueue(){
 
 int Office::isOpenWindow(){
     for(int i = 0; i < numWindows; ++i){
-
         if(!windows[i]->isTaken()){
             return i;
         }
@@ -83,4 +82,16 @@ int Office::getOverFive(){
         }
     }
     return overFive;
+}
+
+bool Office::continueGoing(){
+    for(int i = 0; i < numWindows; ++i){
+        if(windows[i]->isTaken()){
+            return true;
+        }
+    }
+    if(!queue->isEmpty()){
+        return true;
+    }
+    return false;
 }

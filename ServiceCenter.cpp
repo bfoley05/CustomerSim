@@ -48,6 +48,34 @@ void ServiceCenter::operate(int nc, int clockTick){
             Financial_aid->increaseTime();
         }
     }
+
+    while(Registrar->continueGoing() || Cashier->continueGoing() || Financial_aid->continueGoing()){
+        for(int k = 0; k < numCustomers; ++k){
+                Customer *curr = ListOfCustomers[k];
+                if(curr->isFree && curr->officeNumber<3){
+                    if(curr == ListOfCustomers[2]){
+                        cout << curr->officeNumber << endl;
+                    }
+                    int officeNumber = curr->officeNumber;
+                    char whereToGo = curr->officeOrder[officeNumber];
+                    if(whereToGo == 'R'){
+                        Registrar->addCustomerToQueue(curr, officeNumber);
+                    }else if(whereToGo == 'C'){
+                        Cashier->addCustomerToQueue(curr, officeNumber);
+                    }else{
+                        Financial_aid->addCustomerToQueue(curr, officeNumber);
+                    }
+                    curr->officeNumber++;
+                    curr->isFree = false;
+                }
+            }
+            Registrar->checkQueue();
+            Cashier->checkQueue();
+            Financial_aid->checkQueue();
+            Registrar->increaseTime();
+            Cashier->increaseTime();
+            Financial_aid->increaseTime();
+    }
 }
 
 

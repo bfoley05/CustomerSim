@@ -18,6 +18,7 @@ class Office{
         int getIdleTime();
         int getMaxIdleTime();
         int getOverFive();
+        bool continueGoing();
         int numWindows;
     
     private:

@@ -5,8 +5,8 @@
 #include "PostRun.h"
 using namespace std;
 
-int main(){
-    FileProcesser *fp = new FileProcesser("input.txt");
+int main(int argc, char **argv){
+    FileProcesser *fp = new FileProcesser(argv[1]);
     int registrarWindows = fp->RegistrarWindows();
     int cashierWindows = fp->CashierWindows();
     int financialWindows = fp->FincanicalAidWindows();
@@ -15,7 +15,7 @@ int main(){
     int maxTime = 1;
     for(int i = 0; i < fp->sizeOfList; ++i){
         if(list[i]->timeToStart > maxTime){
-            int maxTime = list[i]->timeToStart;
+            maxTime = list[i]->timeToStart;
         }
     }
 
@@ -23,6 +23,7 @@ int main(){
     SC->operate(fp->sizeOfList, maxTime);
 
     PostRun *pr = new PostRun(list, fp->sizeOfList);
+    cout << "\n\n\n";
     pr->printResults();
     SC->printIdleTime();
 

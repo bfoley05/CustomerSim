@@ -12,11 +12,14 @@ class ServiceCenter{
         ~ServiceCenter();
         void operate(int nc, int clockTick);
         void printIdleTime();
+        bool isMoreOffices();
     private:
         Office *Registrar;
         Office *Cashier;
         Office *Financial_aid;
         Customer **ListOfCustomers;
+        int counter;
+        int numCustomers;
 };
 
 

@@ -4,6 +4,7 @@ Office::Office(int n){
     numWindows = n;
     idleTime = 0;
     maxIdleTime = 0;
+    counter = 0;
     windows = new Window*[n];
     queue = new GenQueue<Customer>();
     for(int i = 0; i < n; ++i){
@@ -23,6 +24,7 @@ void Office::addCustomerToQueue(Customer *customer, int officeNumber) {
     if(windowNum>=0){
         temp = queue->dequeue();
         windows[windowNum]->setTime(temp, officeNumber);
+        temp->officeNumber++;
     }
 }
 
@@ -32,6 +34,7 @@ void Office::checkQueue(){
         if(windowNum>=0){
             temp = queue->dequeue();
             windows[windowNum]->setTime(temp, temp->officeNumber);
+            temp->officeNumber++;
         }
     }
 }
@@ -46,6 +49,8 @@ int Office::isOpenWindow(){
 }
 
 void Office::increaseTime(){
+    counter++;
+    // cout << counter << endl;
     for(int i = 0; i < numWindows; ++i){
         windows[i]->decreaseTime();
     }
@@ -53,7 +58,7 @@ void Office::increaseTime(){
     for(int i = 0; i < size; ++i){
         Customer *curr = queue->dequeue();
         curr->waitTime++;
-        curr->waitTimeAtOffice[curr->officeNumber]++;
+        curr->waitTimeAtOffice[curr->officeNumber+1]++;
         queue->insert(curr);
     }
 }
@@ -67,22 +72,13 @@ int Office::getIdleTime(){
 
 int Office::getMaxIdleTime(){
     for(int i = 0; i < numWindows; ++i){
-        if(maxIdleTime < windows[i]->getMaxIdleTime()){
-            maxIdleTime = windows[i]->getMaxIdleTime();
+        if(maxIdleTime < windows[i]->getIdleTime()){
+            maxIdleTime = windows[i]->getIdleTime();
         }
     }
     return maxIdleTime;
 }
 
-int Office::getOverFive(){
-    int overFive = 0;
-    for(int i = 0; i < numWindows; ++i){
-        if(windows[i]->getIdleTime() > 5){
-            overFive++;
-        }
-    }
-    return overFive;
-}
 
 bool Office::continueGoing(){
     for(int i = 0; i < numWindows; ++i){

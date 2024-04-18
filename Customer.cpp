@@ -6,6 +6,7 @@ Customer::Customer(int startTime, string code){
     timeToStart = startTime;
     officeNumber = 0;
     isFree = true;
+    howManyOffices = 0;
     stringstream ss(code);
 
     // Allocate memory for timeAtOffice and officeOrder
@@ -26,6 +27,12 @@ Customer::Customer(int startTime, string code){
 
     for (int i = 0; i < 3; ++i) {
         ss >> officeOrder[i];
+    }
+
+    for(int i = 0; i < 3; ++i){
+        if(timeAtOffice[i]>0){
+            howManyOffices++;
+        }
     }
 }
 

@@ -17,7 +17,6 @@ class Office{
         void checkQueue();
         int getIdleTime();
         int getMaxIdleTime();
-        int getOverFive();
         bool continueGoing();
         int numWindows;
     
@@ -27,6 +26,7 @@ class Office{
         Customer *temp;
         int idleTime;
         int maxIdleTime;
+        int counter;
 
 
 

@@ -17,6 +17,7 @@ class Customer{
         int *waitTimeAtOffice;
         char *officeOrder;
         int waitTime;
+        int howManyOffices;
     
     private:
 };

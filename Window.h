@@ -14,14 +14,11 @@ class Window{
         int waitTime();
         void decreaseTime();
         int getIdleTime();
-        int getMaxIdleTime();
     
     private:
         Customer *currentCustomer;
         int time;
         int idleTime;
-        int maxIdleTime;
-        int tempIdleTime;
 };
 
 #endif
